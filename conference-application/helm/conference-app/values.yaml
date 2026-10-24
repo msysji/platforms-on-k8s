@@ -3,6 +3,7 @@ services:
   tag: v1.0.0
   frontend: 
     image: frontend-go-1739aa83b5e69d4ccb8a5615830ae66c
+    debug: true
   agenda: 
     image: agenda-service-0967b907d9920c99918e2b91b91937b3 
   c4p: 
@@ -15,6 +16,9 @@ install:
 postgresql:
   image:
     debug: true
+    repository: bitnamilegacy/postgresql
+    tag: 15.3.0-debian-11-r17
+    pullPolicy: IfNotPresent
   primary: 
     persistence:
       size: "1Gi"
@@ -28,10 +32,18 @@ postgresql:
         postgresPassword: postgres
 redis: 
   architecture: standalone
+  image:
+    repository: bitnamilegacy/redis
+    tag: 7.0.11-debian-11-r12
+    pullPolicy: IfNotPresent
   master:
     persistence:
       size: "1Gi"
 kafka: 
+  image:
+    repository: bitnamilegacy/kafka
+    tag: 3.4.1-debian-11-r0
+    pullPolicy: IfNotPresent
   persistence:
     size: "1Gi"
   provisioning:
