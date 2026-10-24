@@ -1,0 +1,37 @@
+postgresql:
+  image:
+    debug: true
+    repository: bitnamilegacy/postgresql
+    tag: 15.3.0-debian-11-r17
+    pullPolicy: IfNotPresent
+  primary: 
+    persistence:
+      size: "1Gi"
+    initdb:
+      user: postgres
+      password: postgres
+      scriptsConfigMap: c4p-init-sql
+  global:
+    postgresql:
+      auth: 
+        postgresPassword: postgres
+redis: 
+  architecture: standalone
+  image:
+    repository: bitnamilegacy/redis
+    tag: 7.0.11-debian-11-r12
+    pullPolicy: IfNotPresent
+  master:
+    persistence:
+      size: "1Gi"
+kafka: 
+  image:
+    repository: bitnamilegacy/kafka
+    tag: 3.4.1-debian-11-r0
+    pullPolicy: IfNotPresent
+  persistence:
+    size: "1Gi"
+  provisioning:
+    topics:
+    - name: events-topic
+      partitions: 1
